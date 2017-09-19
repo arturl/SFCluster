@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServiceManifest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="Actor2Pkg" Version="1.0.0" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <ServiceTypes>
+    <StatefulServiceType ServiceTypeName="ImageRecognizerActorServiceType">
+      <Extensions>
+        <Extension Name="__GeneratedServiceType__" GeneratedId="99a0c83a-5a80-47d6-ae29-858904bdc887|None">
+          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+            <DefaultService Name="ImageRecognizerActorService" />
+            <ServiceEndpoint Name="ImageRecognizerActorServiceEndpoint" />
+            <ReplicatorEndpoint Name="ImageRecognizerActorServiceReplicatorEndpoint" />
+            <ReplicatorConfigSection Name="ImageRecognizerActorServiceReplicatorConfig" />
+            <ReplicatorSecurityConfigSection Name="ImageRecognizerActorServiceReplicatorSecurityConfig" />
+            <StoreConfigSection Name="ImageRecognizerActorServiceLocalStoreConfig" />
+          </GeneratedNames>
+        </Extension>
+      </Extensions>
+    </StatefulServiceType>
+    <StatefulServiceType ServiceTypeName="ConfiguratorActorServiceType">
+      <Extensions>
+        <Extension Name="__GeneratedServiceType__" GeneratedId="03acee5d-ce6d-44e4-9c44-1da4bf913ba4|None">
+          <GeneratedNames xmlns="http://schemas.microsoft.com/2015/03/fabact-no-schema">
+            <DefaultService Name="ConfiguratorActorService" />
+            <ServiceEndpoint Name="ConfiguratorActorServiceEndpoint" />
+            <ReplicatorEndpoint Name="ConfiguratorActorServiceReplicatorEndpoint" />
+            <ReplicatorConfigSection Name="ConfiguratorActorServiceReplicatorConfig" />
+            <ReplicatorSecurityConfigSection Name="ConfiguratorActorServiceReplicatorSecurityConfig" />
+            <StoreConfigSection Name="ConfiguratorActorServiceLocalStoreConfig" />
+          </GeneratedNames>
+        </Extension>
+      </Extensions>
+    </StatefulServiceType>
+  </ServiceTypes>
+  <CodePackage Name="Code" Version="1.0.0">
+    <EntryPoint>
+      <ExeHost>
+        <Program>Actor2.exe</Program>
+        <ConsoleRedirection FileRetentionCount="5" FileMaxSizeInKb="2048" />
+      </ExeHost>
+    </EntryPoint>
+  </CodePackage>
+  <ConfigPackage Name="Config" Version="1.0.0" />
+  <Resources>
+    <Endpoints>
+      <Endpoint Name="ImageRecognizerActorServiceEndpoint" />
+      <Endpoint Name="ImageRecognizerActorServiceReplicatorEndpoint" />
+      <Endpoint Name="ConfiguratorActorServiceEndpoint" />
+      <Endpoint Name="ConfiguratorActorServiceReplicatorEndpoint" />
+    </Endpoints>
+  </Resources>
+  <!-- The content will be generated during build -->
+</ServiceManifest>

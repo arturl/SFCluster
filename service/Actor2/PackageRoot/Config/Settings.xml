@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.microsoft.com/2011/01/fabric">
+  <Section Name="ImageRecognizerActorServiceReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="ImageRecognizerActorServiceReplicatorEndpoint" />
+    <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
+  </Section>
+  <Section Name="ImageRecognizerActorServiceReplicatorSecurityConfig">
+    <Parameter Name="CredentialType" Value="None" />
+  </Section>
+  <Section Name="PlacementAndLoadBalancing">
+    <Parameter Name="PLBRefreshGap" Value="0.1" />
+    <Parameter Name="MinPlacementInterval" Value="1.0" />
+    <Parameter Name="MinConstraintCheckInterval" Value="1.0" />
+    <Parameter Name="MinLoadBalancingInterval" Value="5.0" />
+  </Section>
+  <Section Name="ReconfigurationAgent">
+    <Parameter Name="SendLoadReportInterval" Value="2" />
+  </Section>
+  <Section Name="MetricBalancingThresholds">
+    <Parameter Name="CPU" Value="2" />
+  </Section>
+  <Section Name="ConfiguratorActorServiceReplicatorConfig">
+    <Parameter Name="ReplicatorEndpoint" Value="ConfiguratorActorServiceReplicatorEndpoint" />
+    <Parameter Name="BatchAcknowledgementInterval" Value="0.005" />
+  </Section>
+  <Section Name="ConfiguratorActorServiceReplicatorSecurityConfig">
+    <Parameter Name="CredentialType" Value="None" />
+  </Section>
+  <!-- The content will be generated during build -->
+</Settings>

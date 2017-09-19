@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "SFActorApp2", "SFActorApp2\SFActorApp2.sfproj", "{D8508B51-36F1-430F-90CF-BB34D3C07322}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actor2", "Actor2\Actor2.csproj", "{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageRecognizerLib", "ImageRecognizerLib\ImageRecognizerLib.vcxproj", "{3FA9952F-C867-4108-B761-5F82F1D2E60C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Debug|x64.ActiveCfg = Debug|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Debug|x64.Build.0 = Debug|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Debug|x64.Deploy.0 = Debug|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Debug|x86.ActiveCfg = Debug|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Release|x64.ActiveCfg = Release|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Release|x64.Build.0 = Release|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Release|x64.Deploy.0 = Release|x64
+		{D8508B51-36F1-430F-90CF-BB34D3C07322}.Release|x86.ActiveCfg = Release|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Debug|x64.ActiveCfg = Debug|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Debug|x64.Build.0 = Debug|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Debug|x86.ActiveCfg = Debug|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Release|x64.ActiveCfg = Release|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Release|x64.Build.0 = Release|x64
+		{A9077F31-CDAB-4FF4-B435-7FC44A30AC60}.Release|x86.ActiveCfg = Release|x64
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Debug|x64.ActiveCfg = Debug|x64
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Debug|x64.Build.0 = Debug|x64
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Debug|x86.ActiveCfg = Debug|Win32
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Debug|x86.Build.0 = Debug|Win32
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Release|x64.ActiveCfg = Release|x64
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Release|x64.Build.0 = Release|x64
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Release|x86.ActiveCfg = Release|Win32
+		{3FA9952F-C867-4108-B761-5F82F1D2E60C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
