@@ -43,7 +43,7 @@ namespace ClientApp
 
             lastFrame = DateTime.Now;
 
-            var resultSink = new BasicResultSink<string>(PrintResult);
+            var resultSink = new SortedResultSink<string>(PrintResult);
             var scheduler = new StreamingScheduler(actorCount);
 
             while (true)
