@@ -20,8 +20,7 @@ namespace ClientApp
 {
     class ImageRecognitionDriver
     {
-        static DateTime lastFrameBatchProcessed;
-        static int actorCount = 3;
+        static int actorCount = 6;
 
         static object outputLock = new object();
 
@@ -37,16 +36,14 @@ namespace ClientApp
             Mat sourceMat = null;
             Mat frame = new Mat();
 
-            lastFrameBatchProcessed = DateTime.Now;
             var workers = new Task<String>[actorCount];
 
             var configAgent = ActorProxy.Create<Actor2.IConfigurator>(new ActorId(0), "fabric:/SFActorApp2");
             await configAgent.SetLoggingLevel(1);
 
-            lastFrameBatchProcessed = DateTime.Now;
-            frameTimings.Add(DateTime.Now);
+            lastFrame = DateTime.Now;
 
-            var resultSink = new SortedResultSink<string>(PrintResult);
+            var resultSink = new BasicResultSink<string>(PrintResult);
             var scheduler = new StreamingScheduler(actorCount);
 
             while (true)
@@ -85,30 +82,31 @@ namespace ClientApp
             return objectName;
         }
 
-        const int Max_FPS_frames_count = 15; // how many frames to average over when calculating FPS
-        static List<DateTime> frameTimings = new List<DateTime>();
+        const int Max_FPS_frames_count = 10; // how many frames to average over when calculating FPS
+        static double averageElapsedTimePerFrame = 0.0;
+        static DateTime lastFrame = DateTime.Now;
 
         static void PrintResult(int i, string objectName)
         {
+            var now = DateTime.Now;
+            int N = i == 0 ? 1 : 
+                    i < Max_FPS_frames_count ? i : Max_FPS_frames_count;
+
             lock (outputLock)
             {
-                if (frameTimings.Count == Max_FPS_frames_count)
+                averageElapsedTimePerFrame -= averageElapsedTimePerFrame / N;
+
+                var delta = (now - lastFrame).TotalMilliseconds;
+                lastFrame = now;
+                averageElapsedTimePerFrame += delta / N;
+
+                string fps = "?";
+                if (averageElapsedTimePerFrame >= 0)
                 {
-                    frameTimings.RemoveAt(0);
-                }
-                frameTimings.Add(DateTime.Now);
-
-                var millisecondsElapsed = (frameTimings[frameTimings.Count - 1] - frameTimings[0]).TotalMilliseconds;
-
-                int fps = (int)(1000.0 * (frameTimings.Count-1) / millisecondsElapsed);
-
-                double ms = 0;
-                if(frameTimings.Count > 1)
-                {
-                    ms = (frameTimings[frameTimings.Count - 1] - frameTimings[frameTimings.Count - 2]).TotalMilliseconds;
+                    fps = ((int)(1000.0 / averageElapsedTimePerFrame)).ToString();
                 }
 
-                Console.WriteLine($"{i}: {fps} FPS --> {objectName}, {ms} ms");
+                Console.WriteLine($"{i}: {fps} FPS --> {objectName}");
             }
         }
     }
