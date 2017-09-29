@@ -44,7 +44,7 @@ namespace ClientApp
             lastFrame = DateTime.Now;
 
             var resultSink = new SortedResultSink<string>(PrintResult);
-            var scheduler = new StreamingScheduler(actorCount);
+            var scheduler = new StreamingScheduler<IImageRecognizer>(actorCount, "fabric:/SFActorApp2");
 
             while (true)
             {
@@ -59,7 +59,7 @@ namespace ClientApp
             }
         }
 
-        static string ProcessFrame(int i, Mat frame, Int64 actorID)
+        static string ProcessFrame(int i, Mat frame, IImageRecognizer recognizer)
         {
             string objectName;
             try
@@ -70,9 +70,7 @@ namespace ClientApp
                 byte[] dataArray = new byte[size];
                 Marshal.Copy(frame.DataPointer, dataArray, 0, size);
 
-                var recoAgent = ActorProxy.Create<IImageRecognizer>(new ActorId(actorID), "fabric:/SFActorApp2");
-
-                objectName = recoAgent.RecognizeImage(dataArray).Result;
+                objectName = recognizer.RecognizeImage(dataArray).Result;
             }
             catch
             {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.ServiceFabric.Actors;
+using Microsoft.ServiceFabric.Actors.Client;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-class StreamingScheduler
+class StreamingScheduler<ActorType> where ActorType : IActor
 {
     int processorCount;
 
@@ -16,9 +18,12 @@ class StreamingScheduler
     // IDs of the workers, evenly distributed accross Int64 range
     Int64[] workerIDs;
 
-    public StreamingScheduler(int workerCount)
+    string applicationName;
+
+    public StreamingScheduler(int workerCount, string applicationName)
     {
         this.processorCount = workerCount;
+        this.applicationName = applicationName;
 
         workerIDs = new Int64[workerCount];
 
@@ -40,7 +45,7 @@ class StreamingScheduler
 
     int elementsProcessed = 0;
 
-    public void PushElement<Input, Output>(Input element, Func<int, Input, Int64, Output> action, IResultSink<Output> resultSink)
+    public void PushElement<Input, Output>(Input element, Func<int, Input, ActorType, Output> action, IResultSink<Output> resultSink)
     {
         // Get a free slot in the task array. Wait for one to become available
         int availableSlot = Task.WaitAny(tasks);
@@ -51,7 +56,8 @@ class StreamingScheduler
 
         tasks[availableSlot] = Task.Run(() =>
         {
-            var result = action(thisElementNumber, element, workerID);
+            var recoAgent = ActorProxy.Create<ActorType>(new ActorId(workerID), applicationName);
+            var result = action(thisElementNumber, element, recoAgent);
             resultSink.Accept(thisElementNumber, result);
             return workerID;
         });
@@ -64,7 +70,7 @@ class StreamingScheduler
         elementsProcessed = 0;
     }
 
-    public void Process<Input, Output>(IEnumerable<Input> input, Func<int, Input, Int64, Output> action, IResultSink<Output> resultSink)
+    public void Process<Input, Output>(IEnumerable<Input> input, Func<int, Input, ActorType, Output> action, IResultSink<Output> resultSink)
     {
         foreach(var element in input)
         {
